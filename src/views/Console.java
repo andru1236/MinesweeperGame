@@ -4,12 +4,13 @@ import arquitectura.Setup;
 import model.table.Cell;
 import model.table.TypeBomb;
 
-public class Console implements View{
-  
+public class Console implements View {
+
+  private Setup setup;
+  private String[][] cells;
+
   private int row;
   private int col;
-  private String[][] cells;
-  private Setup setup;
 
   public Console(Setup setup) {
     this.setup = setup;
@@ -20,8 +21,8 @@ public class Console implements View{
   }
 
   public void show() {
-    for(String[] cell : cells){
-      for(String c : cell){
+    for (String[] cell : cells) {
+      for (String c : cell) {
         System.out.print(c);
       }
       System.out.println("");
@@ -40,59 +41,58 @@ public class Console implements View{
     }
   }
 
-  public void showCommands(){
+  public void showCommands() {
     System.out.println("Cambiar Dificultad E = EASY, M = MEDIUM, H = HARD");
     System.out.println("Colocar y quitar BANDERA= F x y (Posiciones del tablero)");
     System.out.println("Descubrir campo = P x y (Posiciones del tablero)");
     System.out.println("Finalizar juego = Q");
   }
-     
+
   @Override
   public void updateCellFlag(Cell cell) {
-    if(cell.getFlag()){
+    if (cell.getFlag()) {
       cells[cell.getX()][cell.getY()] = " >";
-    }
-    else{
+    } else {
       cells[cell.getX()][cell.getY()] = " -";
     }
     showCommands();
     show();
   }
-  
+
   @Override
   public void updateCellDiscover(Cell cell) {
-    cells[cell.getX()][cell.getY()] = " "+cell.getValue();
+    cells[cell.getX()][cell.getY()] = " " + cell.getValue();
     showCommands();
     show();
   }
-  
+
   @Override
-  public void updateCellBomb(Cell cell){
+  public void updateCellBomb(Cell cell) {
     TypeBomb typeBomb = cell.getTypeBomb();
-    switch (typeBomb){
+    switch (typeBomb) {
       case BOMB:
         cells[cell.getX()][cell.getY()] = " *";
         break;
       case BOMB_A:
-        cells[cell.getX()][cell.getY()] = " +";        
+        cells[cell.getX()][cell.getY()] = " +";
         break;
       case BOMB_B:
-        cells[cell.getX()][cell.getY()] = " +";        
+        cells[cell.getX()][cell.getY()] = " +";
         break;
     }
     showCommands();
     show();
   }
-  
+
   @Override
-  public void updateLose(){
+  public void updateLose() {
     System.out.println("YOU LOST");
     show();
     showCommands();
   }
-  
+
   @Override
-  public void updateWin(){
+  public void updateWin() {
     System.out.println("YOU WIN");
     show();
     showCommands();
@@ -107,8 +107,7 @@ public class Console implements View{
 
   @Override
   public void updateScore(int score) {
-    showCommands();    
+    showCommands();
     System.out.println("SCORE " + score);
   }
-
 }
