@@ -2,15 +2,15 @@ package arquitectura.allgames;
 
 import arquitectura.Setup;
 import arquitectura.logicGame.MinesweeperGameA;
-import controller.MinesweeperViewConsole;
-import controller.MinesweeperViewUi;
+import controller.ControllerConsole;
+import controller.ControllerUi;
 
 public class GameA extends AbstractGame {
 
   public GameA() {
     setup = new Setup();
     game = new MinesweeperGameA(setup);
-    uiGame = new MinesweeperViewUi(game, setup);
-    console = new MinesweeperViewConsole(game, setup);
+    uiGame = new ControllerUi(game, setup);
+    console = new ControllerConsole(game, setup);
   }
 }
